@@ -1,3 +1,29 @@
+
+# General
+
+Application was build on node server boilerplate
+
+To run application you need install yarn package manager
+
+```bash
+npm install --global yarn
+```
+build docker compose
+
+```bash
+docker compose build
+```
+ 
+ to run application in docker container with mongo db
+ ```bash
+yarn docker:dev
+```
+
+application will be available at http://localhost:3000/v1/docs/  
+
+Application contains swagger ui you can test the enpoints via swagger. App contain auhtentication and authorization but /publisher, /author and /book controllers not require authorization
+
+
 # RESTful API Node Server Boilerplate
 
 [![Build Status](https://travis-ci.org/hagopj13/node-express-boilerplate.svg?branch=master)](https://travis-ci.org/hagopj13/node-express-boilerplate)
