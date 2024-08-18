@@ -57,7 +57,7 @@ const updateAuthorById = async (authorId, updateBody) => {
  * @returns {Promise<Author>}
  */
 const deleteAuthorById = async (authorId) => {
-  const author = await getauthorById(authorId);
+  const author = await getAuthorById(authorId);
   if (!author) {
     throw new ApiError(httpStatus.NOT_FOUND, 'author not found');
   }
