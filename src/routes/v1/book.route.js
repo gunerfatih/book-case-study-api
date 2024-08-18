@@ -2,37 +2,36 @@ const express = require('express');
 const auth = require('../../middlewares/auth');
 const validate = require('../../middlewares/validate');
 const userValidation = require('../../validations/user.validation');
-const userController = require('../../controllers/user.controller');
+const bookController = require('../../controllers/book.controller');
 
 const router = express.Router();
 
 router
   .route('/')
-  .post(auth('manageUsers'), validate(userValidation.createUser), userController.createUser)
-  .get(userController.getUsers);
+  .post(bookController.createBook)
+  .get(bookController.getBooks);
 
 router
-  .route('/:userId')
-  .get(auth('getUsers'), validate(userValidation.getUser), userController.getUser)
-  .patch(auth('manageUsers'), validate(userValidation.updateUser), userController.updateUser)
-  .delete(auth('manageUsers'), validate(userValidation.deleteUser), userController.deleteUser);
+  .route('/:bookId')
+  .get(bookController.getBook)
+  .patch(bookController.updateBook)
+  .delete( bookController.deleteBook);
 
 module.exports = router;
 
 /**
  * @swagger
  * tags:
- *   name: Users
- *   description: User management and retrieval
+ *   name: Books
+ *   description: Book management and retrieval
  */
 
 /**
  * @swagger
- * /users:
+ * /books:
  *   post:
- *     summary: Create a user
- *     description: Only admins can create other users.
- *     tags: [Users]
+ *     summary: Create a book
+ *     tags: [Books]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -83,7 +82,7 @@ module.exports = router;
  *   get:
  *     summary: Get all users
  *     description: Only admins can retrieve all users.
- *     tags: [Users]
+ *     tags: [Books]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -148,11 +147,11 @@ module.exports = router;
 
 /**
  * @swagger
- * /users/{id}:
+ * /books/{id}:
  *   get:
  *     summary: Get a user
  *     description: Logged in users can fetch only their own user information. Only admins can fetch other users.
- *     tags: [Users]
+ *     tags: [Books]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -179,7 +178,7 @@ module.exports = router;
  *   patch:
  *     summary: Update a user
  *     description: Logged in users can only update their own information. Only admins can update other users.
- *     tags: [Users]
+ *     tags: [Books]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -230,7 +229,7 @@ module.exports = router;
  *   delete:
  *     summary: Delete a user
  *     description: Logged in users can delete only themselves. Only admins can delete other users.
- *     tags: [Users]
+ *     tags: [Books]
  *     security:
  *       - bearerAuth: []
  *     parameters:
