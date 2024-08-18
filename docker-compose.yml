@@ -5,13 +5,13 @@ services:
     build: .
     image: node-app
     environment:
-      - MONGODB_URL=mongodb://mongodb:27017/node-boilerplate
+      - MONGODB_URL=mongodb://mongodb:27017/book-management
     ports:
       - '3000:3000'
     depends_on:
       - mongodb
     volumes:
-      - .:/usr/src/node-app
+      - .:/src
     networks:
       - node-network
 
@@ -20,12 +20,9 @@ services:
     ports:
       - '27017:27017'
     volumes:
-      - dbdata:/data/db
+      - ./volumes/mongo:/data/db 
     networks:
       - node-network
-
-volumes:
-  dbdata:
 
 networks:
   node-network:

@@ -31,7 +31,7 @@ const queryBooks = async (filter, options) => {
  * @returns {Promise<Book>}
  */
 const getBookById = async (id) => {
-  return Book.findById(id);
+   return Book.findById(id);
 };
 
 
