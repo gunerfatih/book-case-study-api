@@ -42,60 +42,31 @@ module.exports = router;
  *             type: object
  *             required:
  *               - name
- *               - email
- *               - password
- *               - role
+ *               - publisher
+ *               - author
  *             properties:
  *               name:
  *                 type: string
- *               email:
+ *               publisher:
  *                 type: string
- *                 format: email
- *                 description: must be unique
- *               password:
+ *               author:
  *                 type: string
- *                 format: password
- *                 minLength: 8
- *                 description: At least one number and one letter
- *               role:
- *                  type: string
- *                  enum: [user, admin]
  *             example:
- *               name: fake name
- *               email: fake@example.com
- *               password: password1
- *               role: user
+ *               name: War and peace
+ *               author : 111
+ *               publisher : 222
  *     responses:
  *       "201":
  *         description: Created
- *         content:
- *           application/json:
- *             schema:
- *                $ref: '#/components/schemas/User'
- *       "400":
- *         $ref: '#/components/responses/DuplicateEmail'
- *       "401":
- *         $ref: '#/components/responses/Unauthorized'
- *       "403":
- *         $ref: '#/components/responses/Forbidden'
- *
  *   get:
- *     summary: Get all users
- *     description: Only admins can retrieve all users.
+ *     summary: Get all books
  *     tags: [Books]
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: name
  *         schema:
  *           type: string
- *         description: User name
- *       - in: query
- *         name: role
- *         schema:
- *           type: string
- *         description: User role
+ *         description: Book name
  *       - in: query
  *         name: sortBy
  *         schema:
@@ -107,7 +78,7 @@ module.exports = router;
  *           type: integer
  *           minimum: 1
  *         default: 10
- *         description: Maximum number of users
+ *         description: Maximum number of books
  *       - in: query
  *         name: page
  *         schema:
@@ -149,18 +120,15 @@ module.exports = router;
  * @swagger
  * /books/{id}:
  *   get:
- *     summary: Get a user
- *     description: Logged in users can fetch only their own user information. Only admins can fetch other users.
+ *     summary: Get a Book
  *     tags: [Books]
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: User id
+ *         description: Book id
  *     responses:
  *       "200":
  *         description: OK
@@ -176,18 +144,15 @@ module.exports = router;
  *         $ref: '#/components/responses/NotFound'
  *
  *   patch:
- *     summary: Update a user
- *     description: Logged in users can only update their own information. Only admins can update other users.
+ *     summary: Update a Book
  *     tags: [Books]
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: User id
+ *         description: book id
  *     requestBody:
  *       required: true
  *       content:
@@ -197,19 +162,8 @@ module.exports = router;
  *             properties:
  *               name:
  *                 type: string
- *               email:
- *                 type: string
- *                 format: email
- *                 description: must be unique
- *               password:
- *                 type: string
- *                 format: password
- *                 minLength: 8
- *                 description: At least one number and one letter
  *             example:
  *               name: fake name
- *               email: fake@example.com
- *               password: password1
  *     responses:
  *       "200":
  *         description: OK
@@ -225,10 +179,9 @@ module.exports = router;
  *         $ref: '#/components/responses/Forbidden'
  *       "404":
  *         $ref: '#/components/responses/NotFound'
- *
+ * 
  *   delete:
- *     summary: Delete a user
- *     description: Logged in users can delete only themselves. Only admins can delete other users.
+ *     summary: Delete a book
  *     tags: [Books]
  *     security:
  *       - bearerAuth: []
@@ -238,7 +191,7 @@ module.exports = router;
  *         required: true
  *         schema:
  *           type: string
- *         description: User id
+ *         description: Book id
  *     responses:
  *       "200":
  *         description: No content
